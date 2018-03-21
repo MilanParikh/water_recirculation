@@ -1,13 +1,18 @@
 class Schedule {
-  String startTime;
-  String endTime;  
+  int startHour;
+  int startMinute;
+  int endHour;
+  int endMinute;
+
   
-  Schedule(this.startTime, this.endTime);
+  Schedule(this.startHour, this.startMinute, this.endHour, this.endMinute);
   
   scheduleToJson() {
     return {
-      "start": startTime,
-      "end": endTime,
+      "startHour": startHour,
+      "startMinute": startMinute,
+      "endHour": endHour,
+      "endMinute": endMinute,
     };
   }
 

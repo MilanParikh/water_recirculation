@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'schedule_page.dart';
 
 final firebaseReference = FirebaseDatabase.instance.reference();
 
@@ -23,6 +24,10 @@ class _MyHomePageState extends State<MyHomePage> {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(widget.title),
+        actions: <Widget>[
+          new IconButton(icon: new Icon(Icons.list), 
+              onPressed: () {Navigator.of(context).pushNamed('/schedule_page');})
+        ],
       ),
       body: new Center(
         child: new Column(
@@ -61,7 +66,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void onStart() {
     firebaseReference.child("status").set("on");
-    firebaseReference.child("temperature").onValue.listen((Event event) {
+    firebaseReference
+        .child("temperature")
+        .onValue
+        .listen((Event event) {
       setState(() {
         temperature = event.snapshot.value;
       });
@@ -72,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void onStop(){
+  void onStop() {
     firebaseReference.child("status").set("off");
     setState(() {
       startButton = true;
