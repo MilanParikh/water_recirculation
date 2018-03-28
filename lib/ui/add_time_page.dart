@@ -60,11 +60,11 @@ class _AddTimePageState extends State<AddTimePage> {
         switch (type) {
           case 0:
             start =
-                timeOfDay.hour.toString() + ":" + timeOfDay.minute.toString();
+                timeOfDay.hour.toString() + ":" + timeOfDay.minute.toString().padLeft(2, '0');
             startTime = timeOfDay;
             break;
           case 1:
-            end = timeOfDay.hour.toString() + ":" + timeOfDay.minute.toString();
+            end = timeOfDay.hour.toString() + ":" + timeOfDay.minute.toString().padLeft(2, '0');
             endTime = timeOfDay;
             break;
         }
@@ -75,6 +75,7 @@ class _AddTimePageState extends State<AddTimePage> {
   onSubmit() {
     Schedule schedule = new Schedule(startTime.hour, startTime.minute, endTime.hour, endTime.minute);
     firebaseReference.child("schedule").push().set(schedule.scheduleToJson());
+    Navigator.pop(context);
   }
 
 }

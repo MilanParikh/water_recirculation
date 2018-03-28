@@ -20,6 +20,27 @@ class _MyHomePageState extends State<MyHomePage> {
   bool stopButton = false;
 
   @override
+  void initState() {
+    super.initState();
+    firebaseReference.child("temperature").onValue.listen((Event event) {
+      setState(() {
+        temperature = event.snapshot.value;
+      });
+    });
+    firebaseReference.child("status").onValue.listen((Event event) {
+      setState(() {
+        if(event.snapshot.value == "on"){
+          startButton = false;
+          stopButton = true;
+        }else{
+          startButton = true;
+          stopButton = false;
+        }
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
@@ -66,14 +87,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void onStart() {
     firebaseReference.child("status").set("on");
-    firebaseReference
-        .child("temperature")
-        .onValue
-        .listen((Event event) {
-      setState(() {
-        temperature = event.snapshot.value;
-      });
-    });
     setState(() {
       startButton = false;
       stopButton = true;
@@ -87,6 +100,5 @@ class _MyHomePageState extends State<MyHomePage> {
       stopButton = false;
     });
   }
-
 
 }
