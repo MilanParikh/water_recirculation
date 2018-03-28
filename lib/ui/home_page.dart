@@ -58,9 +58,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: <Widget>[
                     new Text(
                       temperature.toString(),
-                      style: new TextStyle(fontSize: 30.0),
+                      style: getTempStyle(),
                     ),
-                    new Text("°F", style: new TextStyle(fontSize: 25.0)),
+                    new Text("°F", style: getTempStyle()),
                   ],)),
             new Expanded(
               child: new Row(
@@ -99,6 +99,14 @@ class _MyHomePageState extends State<MyHomePage> {
       startButton = true;
       stopButton = false;
     });
+  }
+
+  TextStyle getTempStyle() {
+    if(temperature>=95) {
+      return new TextStyle(fontSize: 30.0, color: Colors.red);
+    }else {
+      return new TextStyle(fontSize: 30.0, color: Colors.blue);
+    }
   }
 
 }
